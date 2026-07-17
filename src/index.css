@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ============================================
+   LIFE OS — Minimal Dark Design System
+   ============================================ */
+
+:root {
+  /* Color Tokens */
+  --bg-base: #0E0F12;
+  --bg-surface: #1A1B20;
+  --bg-input: #131416;
+  --border-main: #2A2C33;
+  
+  --accent-primary: #4F7FFF;
+  --accent-secondary: #A855F7;
+  --accent-dim: rgba(79, 127, 255, 0.15);
+  
+  /* Curated Category Accents */
+  --color-orange: #FF8A4C;
+  --color-cyan: #3DD9D6;
+  --color-indigo: #7C8CFF;
+  --color-emerald: #4ADE80;
+  
+  --text-primary: #F5F5F7;
+  --text-secondary: #9498A3;
+  --text-tertiary: #5C5F69;
+  
+  /* Status Colors */
+  --status-good: #4ADE80;
+  --status-okay: #FBBF24;
+  --status-bad: #F87171;
+  
+  /* Layout Spacing */
+  --nav-height-mobile: 64px;
+  --sidebar-width: 240px;
+  --content-padding-x: 16px;
+  --content-padding-x-md: 32px;
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Plus Jakarta Sans', var(--font-sans);
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: var(--bg-base);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   Typography Hierarchy
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Text and Card Gradients */
+.text-gradient {
+  background: linear-gradient(135deg, #4F7FFF 0%, #A855F7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.bg-hero-gradient {
+  position: relative;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-main);
+  background-image: linear-gradient(135deg, rgba(79, 127, 255, 0.06) 0%, rgba(168, 85, 247, 0.06) 100%);
+}
+
+/* ============================================
+   Selection & Scrollbar
+   ============================================ */
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-main);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3A3B40;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-main) transparent;
+}
+
+/* ============================================
+   Focus States (No Glow Rings)
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Keyframe Animations (150ms transitions & basic animations)
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-in {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toast-out {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(16px); opacity: 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(0.82); }
+  60% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.animate-fade-in { animation: fadeIn 0.2s ease-out; }
+.animate-fade-in-up { animation: fadeInUp 0.25s ease-out; }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-check-bounce { animation: checkBounce 0.15s ease-out; }
+
+/* ============================================
+   Design Tokens Layout Styles (Cards, Inputs)
+   ============================================ */
+
+.card-surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-main);
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 0.15s ease-out;
+}
+
+.card-surface-inset {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-main);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.card-surface-elevated {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-main);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.input-field {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-main);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: border-color 0.15s ease-out;
+  width: 100%;
+}
+
+.input-field::placeholder {
+  color: var(--text-tertiary);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+/* ============================================
+   Mobile-safe bottom spacing
+   ============================================ */
+
+.pb-nav {
+  padding-bottom: calc(var(--nav-height-mobile) + 16px);
+}
+
+@media (min-width: 768px) {
+  .pb-nav {
+    padding-bottom: 24px;
+  }
+}
+
+/* ============================================
+   Pill / Segmented Control Rows
+   Matches AppShell content padding (px-4 / md:px-8)
+   ============================================ */
+
+.pill-row {
+  width: 100%;
+  padding-inline: var(--content-padding-x);
+  margin-inline: calc(var(--content-padding-x) * -1);
+}
+
+.pill-row-scroll {
+  width: 100%;
+  padding-inline: var(--content-padding-x);
+  margin-inline: calc(var(--content-padding-x) * -1);
+  padding-block: 2px;
+}
+
+@media (min-width: 768px) {
+  .pill-row,
+  .pill-row-scroll {
+    padding-inline: var(--content-padding-x-md);
+    margin-inline: calc(var(--content-padding-x-md) * -1);
+  }
+}
+
+/* ============================================
+   Number input — hide spinners
+   ============================================ */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
